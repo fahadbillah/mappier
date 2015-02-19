@@ -1,3 +1,5 @@
-<ui-gmap-google-map center='map.center' zoom='map.zoom'>
-<ui-gmap-marker idKey='marker.id' coords='marker.coords'></ui-gmap-marker>
+<ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds">
+<ui-gmap-markers models='allMarkers' idkey="allMarkers.id" coords="'self'" icon="'icon'"></ui-gmap-markers>
+<!-- <ui-gmap-markers models='' idKey='' doCluster="" clusterOptions='' fit="" labelContent=''coords="''" icon="''" options="''" labelContent="''" labelAnchor="''" labelClass="''" click="''"></ui-gmap-markers> -->
+<!-- <ui-gmap-marker idKey='marker.id' coords='marker.coords'></ui-gmap-marker> -->
 </ui-gmap-google-map>

@@ -18,43 +18,67 @@
 
      var i = 0;
 
+     $scope.allMarkers = [];
+
      var getCurrentPosition = function() {
      	navigator.geolocation.getCurrentPosition(function(position){
-     		console.log(position.coords);
 
-     		var latitude = position.coords.latitude + i;
-     		var longitude = position.coords.longitude + i;
+               $scope.icon = 'http://img.informer.com/icons/png/48/3182/3182670.png';
+               var latitude = position.coords.latitude + i;
+               var longitude = position.coords.longitude + i;
 
-     		$scope.map = { center: { latitude: latitude, longitude: longitude}, zoom: 18 };
-     		$scope.marker = {
-     			id: 1,
-     			coords: null
-     		};
-     		$scope.marker.coords = {
-     			accuracy: 9295,
-     			altitude: null,
-     			altitudeAccuracy: null,
-     			heading: null,
-     			latitude: latitude,
-     			longitude: longitude,
-     			speed: null
-     		};
+               $scope.map = { 
+                    center: { 
+                         latitude: latitude, 
+                         longitude: longitude
+                    }, 
+                    zoom: 18,
+                    bounds: {}                    
+               };
+               $scope.marker = {
+                  id: 1,
+                  coords: null
+             };
+               // $scope.allMarkers.push({latitude:latitude, longitude:longitude});
+             //   $scope.marker.coords = {
+             //      accuracy: 9295,
+             //      altitude: null,
+             //      altitudeAccuracy: null,
+             //      heading: null,
+             //      latitude: latitude,
+             //      longitude: longitude,
+             //      speed: null
+             // };
      		// $scope.marker.coords.latitude = position.coords.latitude;
      		// $scope.marker.coords.longitude = position.coords.longitude;
 
-     		console.log($scope.map);
 
 
 
 
      		uiGmapGoogleMapApi.then(function(maps) {
-     			console.log(maps);
+     			// console.log(maps);
      		});
-     		i+= 0.0001;
-     	})
 
-     	$timeout(getCurrentPosition, 1000);
+            $scope.$watch(function() {
+                return $scope.map.bounds;
+           }, function(nv, ov) {
 
-     }
-     getCurrentPosition();
- }]);
+               var ret = {
+                    id: counter,
+                    latitude: latitude,
+                    longitude: longitude,
+                    title: 'm' + counter
+               };
+               counter++;
+               $scope.allMarkers.push(ret);
+          // console.log($scope.allMarkers);
+     },true);
+            i+= 0.0001;
+       })
+var counter = 1;
+$timeout(getCurrentPosition, 5000);
+
+}
+getCurrentPosition();
+}]);
